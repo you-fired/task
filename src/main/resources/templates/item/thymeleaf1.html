@@ -6,6 +6,20 @@
 </head>
 <body>
     <h1>Thymeleaf 연습 1 페이지</h1>
-    <p th:text="${itemDto}">데이터 확인</p>
+    <div>
+        상품명 : <span th:text="${itemDto.itemNm}"></span>
+    </div>
+    <div>
+        상품 상세 설명 : <span th:text="${itemDto.itemDetail}"></span>
+    </div>
+    <div>
+        가격 : <span th:text="${itemDto.price}"></span>
+    </div> <div>
+        재고 : <span th:text="${itemDto.stockNumber}"></span>
+    </div>
+    <div>
+        <a th:href="@{/item/thymeleaf2(name='홍길동',age=10)}">thymeleaf2로 이동</a>
+    </div>
+
 </body>
 </html>

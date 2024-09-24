@@ -15,6 +15,6 @@ public class IndexController {
                 .build();
 
         model.addAttribute("data",indexDto);
-        return "index";
+        return "temp/temp";
     }
 }
