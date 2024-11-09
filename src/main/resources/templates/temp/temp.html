@@ -1,12 +1,121 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>본문 페이지</title>
+    <title>이력서 관리 플랫폼</title>
+    <style>
+        /* 전체적인 색상과 폰트 스타일 */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #0a2540, #102b55);
+            color: #f0f4ff;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(10, 37, 64, 0.9); /* 헤더에 반투명 배경 */
+            padding: 20px;
+            color: #f0f4ff;
+            text-align: center;
+            z-index: 1000; /* 본문보다 위에 위치 */
+        }
+
+        /* 본문을 헤더 아래에 위치시키기 위한 패딩 */
+        .content {
+            margin-top: 80px; /* 헤더 높이만큼 여백 설정 */
+            text-align: center;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 제목 스타일 */
+        h1 {
+            font-size: 2.5em;
+            color: #9dc3ff;
+            margin-bottom: 20px;
+        }
+
+        /* 설명 텍스트 스타일 */
+        p {
+            font-size: 1.2em;
+            color: #cfe3ff;
+            margin-bottom: 30px;
+        }
+
+        /* 기능 섹션 스타일 */
+        .features {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            color: #e0e7ff;
+            margin-top: 30px;
+        }
+
+        /* 기능 아이템 스타일 */
+        .feature-item {
+            width: 200px;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 기능 아이템 제목 스타일 */
+        .feature-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #b0d1ff;
+        }
+
+        /* 기능 아이템 설명 텍스트 스타일 */
+        .feature-item p {
+            font-size: 0.9em;
+            color: #cfe3ff;
+            line-height: 1.4;
+        }
+    </style>
 </head>
 <body>
+<header>
+    <h2>이력서 관리</h2>
+    <a href="#login">로그인</a> | <a href="#register">회원가입</a>
+</header>
+
 <div layout:fragment="content" class="content">
-    <h1>본문 영역</h1>
+    <h1>이력서 관리 플랫폼에 오신 것을 환영합니다</h1>
+    <p>효율적으로 이력서를 작성하고 관리하여 구직 활동을 지원하세요.</p>
+    <div class="features">
+        <div class="feature-item">
+            <!-- 이력서 작성 페이지로 링크 추가 -->
+            <a href="/resume/list" sec:authorize="isAuthenticated()">
+                <h3>이력서 작성</h3>
+            </a>
+            <h3 sec:authorize="isAnonymous()">이력서 작성</h3>
+            <p>전문적인 템플릿을 사용하여 효과적으로 자신의 역량을 표현할 수 있습니다.</p>
+        </div>
+        <div class="feature-item">
+            <!-- 프로필 관리 페이지로 링크 추가 -->
+            <a href="/profile/profile" sec:authorize="isAuthenticated()">
+                <h3>프로필 관리</h3>
+            </a>
+            <h3 sec:authorize="isAnonymous()">프로필 관리</h3>
+            <p>다양한 이력서를 손쉽게 업데이트하고 정리하여, 여러 구직 활동에 활용하세요.</p>
+        </div>
+    </div>
 </div>
 </body>
 </html>

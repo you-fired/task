@@ -2,17 +2,131 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<th:block layout:fragment="css">
+    <title>회원 등록 페이지</title>
     <style>
+        /* Body 스타일 */
+        body {
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar{
+            display: none;
+        }
+        /* 폼 스타일 */
+        .content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        .form-label {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-control:focus {
+            border-color: #6a11cb;
+            outline: none;
+        }
+
         .fieldError {
             color: #bd2130;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        /* Submit 버튼 스타일 */
+        .btn {
+            background-color: #2575fc;
+            color: white;
+            padding: 12px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #6a11cb;
+        }
+
+        /* 에러 메시지 alert 스타일 */
+        .alert {
+            color: #bd2130;
+            font-size: 14px;
+            background-color: rgba(189, 33, 48, 0.1);
+            padding: 10px;
+            border: 1px solid #bd2130;
+            border-radius: 5px;
+            margin-bottom: 20px;
         }
     </style>
-</th:block>
-<th:block layout:fragment="script">
+</head>
+<body>
+<div layout:fragment="content" class="content">
+    <h1>회원 등록 페이지</h1>
 
+    <!-- 에러 메시지 표시 부분 -->
+    <th:block th:if="${errorMessage != null}">
+        <div class="alert">
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </th:block>
+
+    <form method="post" action="/member/add" role="form" th:object="${memberDto}">
+        <div class="mb-3">
+            <label for="name" class="form-label">이름</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="이름을 입력하세요">
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">오류 발생 시 처리 부분</p>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">이메일 주소</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}" placeholder="이메일을 입력하세요">
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" class="form-control" id="password" th:field="*{password}" placeholder="비밀번호를 입력하세요">
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">주소</label>
+            <input type="text" class="form-control" id="address" th:field="*{address}" placeholder="주소를 입력하세요">
+            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
+        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button type="submit" class="btn">회원가입</button>
+    </form>
+</div>
+
+<th:block layout:fragment="script">
     <script th:inline="javascript">
         $(document).ready(function(){
             let errorMessage = [[${errorMessage}]];
@@ -21,35 +135,6 @@
             }
         });
     </script>
-
 </th:block>
-<body>
-<div layout:fragment="content" class="content">
-    <h1>회원 등록 페이지</h1>
-    <form method="post" action="/member/add" role="form" th:object="${memberDto}">
-        <div class="mb-3">
-            <label for="name" class="form-label">이름</label>
-            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="이름을 입력하세요" aria-describedby="emailHelp">
-            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="fieldError">오류발생 시 처리부분</p>
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">이메일 주소</label>
-            <input type="email" class="form-control" id="email"  th:field="*{email}"  placeholder="이메일을 입력하세요" aria-describedby="emailHelp">
-            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="fieldError">Incorrect data</p>
-        </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">비밀번호</label>
-            <input type="password" class="form-control" id="password" th:field="*{password}"  placeholder="비밀번호를 입력하세요">
-            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect data</p>
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">주소</label>
-            <input type="text" class="form-control" id="address" th:field="*{address}"  placeholder="주소를 입력하세요" aria-describedby="emailHelp">
-            <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="fieldError">Incorrect data</p>
-        </div>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
 </body>
 </html>

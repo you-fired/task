@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout1}">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* 세로로 정렬 */
+            height: 100vh; /* 전체 화면 높이 */
+            background-color: #f4f4f4;
+        }
+
+        /* 헤더 스타일 */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0; /* 상하 여백 */
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            height: 80px; /* 고정된 높이 */
+        }
+
+        /* 본문 내용 컨테이너 */
+        .content {
+            flex: 1; /* 본문이 나머지 공간을 차지하도록 */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* 본문을 상단에 정렬 */
+            padding: 20px;
+        }
+
+        /* 프로필 정보 스타일 */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .profile-info {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header>
+    프로필 페이지
+</header>
+
+<div layout:fragment="content" class="content">
+    <div class="container">
+        <h1>프로필 정보</h1>
+
+        <div th:if="${profile != null}">
+            <div class="profile-info">
+                <strong>이름:</strong> <span th:text="${profile.name}">이름</span>
+            </div>
+            <div class="profile-info">
+                <strong>경력:</strong> <span th:text="${profile.career}">경력</span>
+            </div>
+            <div class="profile-info">
+                <strong>학력:</strong> <span th:text="${profile.education}">학력</span>
+            </div>
+            <div class="profile-info">
+                <strong>자격증:</strong> <span th:text="${profile.certificates}">자격증</span>
+            </div>
+            <div class="profile-info">
+                <strong>선호 지역:</strong> <span th:text="${profile.preferredLocation}">선호 지역</span>
+            </div>
+
+            <button th:onclick="'window.location.href=\'/profile/edit\''">프로필 수정</button>
+        </div>
+
+        <div th:if="${profile == null}">
+            <p>프로필이 없습니다. 새 프로필을 생성해주세요.</p>
+            <button th:onclick="'window.location.href=\'/profile/create\''">프로필 생성</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
