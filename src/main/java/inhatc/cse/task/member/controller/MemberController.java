@@ -1,6 +1,7 @@
 package inhatc.cse.task.member.controller;
 
 import inhatc.cse.task.member.dto.MemberDto;
+import inhatc.cse.task.member.dto.PasswordChangeDto;
 import inhatc.cse.task.member.entity.Member;
 import inhatc.cse.task.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -68,6 +69,31 @@ public class MemberController {
             new SecurityContextLogoutHandler().logout(request,response,authentication);
         }
         return "redirect:/";
+    }
+    @GetMapping("/pwchange")
+    public String showChangePasswordPage(Model model) {
+        model.addAttribute("passwordChangeDto", new PasswordChangeDto());
+        return "member/pwchange"; // 비밀번호 변경 폼을 띄운다.
+    }
+
+    @PostMapping("/pwchange")
+    public String changePassword(@Valid PasswordChangeDto passwordChangeDto, Model model) {
+        if (!passwordChangeDto.getNewPassword().equals(passwordChangeDto.getConfirmPassword())) {
+            model.addAttribute("errorMessage", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            return "member/pwchange";
+        }
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // 현재 로그인한 사용자의 이메일
+
+        try {
+            memberService.changePassword(email, passwordChangeDto.getCurrentPassword(), passwordChangeDto.getNewPassword());
+        } catch (IllegalStateException e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "member/pwchange";
+        }
+
+        return "redirect:/"; // 성공적으로 비밀번호 변경 후 홈으로 리다이렉트
     }
 
 }

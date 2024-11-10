@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .requestMatchers("/member/login").permitAll()
                 .requestMatchers("/resume/**").authenticated()
                 .requestMatchers("/profile/**").authenticated()
+                .requestMatchers("/member/pwchange").authenticated()
                 .anyRequest().authenticated()
 
         );
