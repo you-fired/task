@@ -43,6 +43,7 @@ public class ProfileService {
             profile.setEducation(profileDto.getEducation());
             profile.setCertificates(profileDto.getCertificates());
             profile.setPreferredLocation(profileDto.getPreferredLocation());
+            profile.setSkills(profileDto.getSkills());
 
             // 업데이트된 Profile 객체 저장
             return profileRepository.save(profile);
@@ -72,6 +73,7 @@ public class ProfileService {
         profile.setEducation(profileDto.getEducation());
         profile.setCertificates(profileDto.getCertificates());
         profile.setPreferredLocation(profileDto.getPreferredLocation());
+        profile.setSkills(profileDto.getSkills());
 
         // 새로운 프로필 저장
         return profileRepository.save(profile);
@@ -91,6 +93,7 @@ public class ProfileService {
                 .education(profile.getEducation())
                 .certificates(profile.getCertificates())
                 .preferredLocation(profile.getPreferredLocation())
+                .Skills(profile.getSkills())
                 .build();
     }
 }

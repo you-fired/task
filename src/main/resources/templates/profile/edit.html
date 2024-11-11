@@ -34,7 +34,7 @@
     /* 본문 내용에 여백 추가 */
     .content {
       flex: 1; /* 본문이 화면을 채우도록 */
-      padding-top: 80px; /* 헤더의 높이(120px)와 여백(20px)을 고려한 여백 추가 */
+      padding-top: 20px; /* 헤더의 높이(120px)와 여백(20px)을 고려한 여백 추가 */
       display: flex;
       justify-content: center; /* 수평 가운데 */
       align-items: flex-start; /* 수직 상단 정렬 */
@@ -158,7 +158,6 @@
         <label for="certificates">자격증</label>
         <input type="text" id="certificates" th:field="*{certificates}" placeholder="자격증을 입력하세요" />
       </div>
-
       <div>
         <label for="preferredLocation">선호 지역</label>
         <select id="preferredLocation" th:field="*{preferredLocation}">
@@ -170,7 +169,10 @@
           <option value="인천" th:selected="${profile.preferredLocation == '인천'}">인천</option>
         </select>
       </div>
-
+      <div>
+        <label for="certificates">기술</label>
+        <input type="text" id="skills" th:field="*{skills}" placeholder="보유 기술을 입력하세요" />
+      </div>
       <button type="submit">저장</button>
     </form>
   </div>

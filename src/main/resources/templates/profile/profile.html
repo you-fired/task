@@ -14,60 +14,60 @@
             background-color: #f4f4f4;
         }
 
-        /* 헤더 스타일 */
         header {
             background-color: #007bff;
             color: white;
-            padding: 20px 0; /* 상하 여백 */
+            padding: 20px 0;
             text-align: center;
-            font-size: 24px;
+            font-size: 28px; /* 제목 폰트 크기 확대 */
             font-weight: bold;
-            height: 80px; /* 고정된 높이 */
+            height: 100px; /* 헤더 높이 키움 */
         }
 
-        /* 본문 내용 컨테이너 */
         .content {
             flex: 1; /* 본문이 나머지 공간을 차지하도록 */
             display: flex;
             justify-content: center;
             align-items: flex-start; /* 본문을 상단에 정렬 */
-            padding: 20px;
+            padding: 60px; /* 전체 여백을 더 많이 줘서 본문 공간 확대 */
         }
 
-        /* 프로필 정보 스타일 */
         .container {
             width: 100%;
-            max-width: 600px;
-            padding: 20px;
+            max-width: 1000px; /* 컨테이너 최대 너비를 더 넓게 설정 */
+            padding: 40px; /* 컨테이너 내부 여백을 더 넓게 */
             background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px; /* 모서리를 더 둥글게 */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15); /* 그림자 더 강조 */
         }
 
         h1 {
             text-align: center;
+            font-size: 36px; /* 제목 크기 키움 */
+            margin-bottom: 30px; /* 제목과 내용 사이 여백 확대 */
         }
 
         .profile-info {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 20px; /* 텍스트 크기 키움 */
+            margin-bottom: 20px; /* 정보 항목 간의 간격 확대 */
         }
 
         button {
             width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            font-size: 16px;
+            padding: 16px; /* 버튼 크기 확대 */
+            margin-top: 30px; /* 버튼과 내용 사이 여백 증가 */
+            font-size: 18px; /* 버튼 글자 크기 확대 */
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px; /* 버튼 모서리 둥글게 */
             cursor: pointer;
         }
 
         button:hover {
             background-color: #0056b3;
         }
+
     </style>
 </head>
 <body>
@@ -95,7 +95,9 @@
             <div class="profile-info">
                 <strong>선호 지역:</strong> <span th:text="${profile.preferredLocation}">선호 지역</span>
             </div>
-
+            <div class="profile-info">
+                <strong>보유 기술:</strong> <span th:text="${profile.skills}">보유 기술</span>
+            </div>
             <button th:onclick="'window.location.href=\'/profile/edit\''">프로필 수정</button>
         </div>
 

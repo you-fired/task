@@ -14,6 +14,7 @@ public class ProfileDto {
     private String education;
     private String certificates;
     private String preferredLocation;
+    private String Skills;
 
 
 }
