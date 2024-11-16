@@ -28,6 +28,19 @@ public class ProfileService {
         }
     }
 
+    public ProfileDto getProfileByUsername(String username) {
+        // 프로필을 DB에서 조회
+        Profile profile = profileRepository.findByUsername(username);
+
+        if (profile != null) {
+            // Profile 엔티티를 ProfileDto로 변환하여 반환
+            return convertToDto(profile);
+        } else {
+            // 프로필이 없다면 null을 반환하거나 예외를 던질 수 있음
+            return null;
+        }
+    }
+
     // 프로필 업데이트
     public Profile updateProfile(ProfileDto profileDto) {
         // 현재 로그인된 사용자의 username을 SecurityContext에서 가져옴
@@ -80,7 +93,7 @@ public class ProfileService {
     }
 
     // 현재 로그인된 사용자의 username을 반환하는 메소드
-    private String getLoggedInUsername() {
+    public String getLoggedInUsername() {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return user.getUsername();
     }
