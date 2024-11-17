@@ -101,7 +101,49 @@
       margin-bottom: 20px;
       text-align: center; /* 중앙 정렬 */
     }
+    .resume-section {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: 1fr; /* 한 열 */
+      gap: 20px; /* 카드 간 간격 */
+    }
 
+    .resume-card {
+      background-color: #ffffff;
+      border: 1px solid #dcdde1;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .resume-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .resume-card strong {
+      display: block; /* 제목을 별도 줄로 표시 */
+      font-size: 1.1rem;
+      color: #34495e;
+      margin-bottom: 10px;
+    }
+
+    .resume-card span {
+      font-size: 0.95rem;
+      color: #555;
+      line-height: 1.6; /* 줄 간격 */
+    }
+
+    /* 섹션 제목 스타일 */
+    .resume-section-title {
+      font-size: 1.8rem;
+      color: #2d333b;
+      margin-bottom: 20px;
+      text-align: center;
+      border-bottom: 2px solid #e3e4e6;
+      padding-bottom: 10px;
+    }
   </style>
 
 </head>
@@ -139,12 +181,33 @@
     </div>
   </div>
 
-  <div class="mt-4">
-    <p><strong>자기소개:</strong> <span th:text="${resume.selfIntroduction}">자기소개 내용</span></p>
-    <p><strong>프로젝트 경험:</strong> <span th:text="${resume.projectExperience}">프로젝트 경험 내용</span></p>
-    <p><strong>수상 경력:</strong> <span th:text="${resume.awards}">수상 경력 내용</span></p>
-    <p><strong>어학 점수:</strong> <span th:text="${resume.languageScores}">어학 점수 내용</span></p>
-    <p><strong>커뮤니티 활동:</strong> <span th:text="${resume.communityActivities}">커뮤니티 활동 내용</span></p>
+  <div class="resume-section">
+    <div class="resume-section-title">이력서 상세 정보</div>
+
+    <div class="resume-card">
+      <strong>자기소개</strong>
+      <span th:text="${resume.selfIntroduction}">자기소개 내용</span>
+    </div>
+
+    <div class="resume-card">
+      <strong>프로젝트 경험</strong>
+      <span th:text="${resume.projectExperience}">프로젝트 경험 내용</span>
+    </div>
+
+    <div class="resume-card">
+      <strong>수상 경력</strong>
+      <span th:text="${resume.awards}">수상 경력 내용</span>
+    </div>
+
+    <div class="resume-card">
+      <strong>어학 점수</strong>
+      <span th:text="${resume.languageScores}">어학 점수 내용</span>
+    </div>
+
+    <div class="resume-card">
+      <strong>커뮤니티 활동</strong>
+      <span th:text="${resume.communityActivities}">커뮤니티 활동 내용</span>
+    </div>
   </div>
 
   <div class="mt-4">
