@@ -31,7 +31,13 @@ public class ResumeController {
     public String getResumes(Model model) {
         // 현재 로그인한 사용자 이름을 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUsername = authentication.getName();  // 로그인한 사용자의 username
+        String currentUsername = authentication.getName();
+
+        ProfileDto profile = profileService.getProfileByUsername(currentUsername);
+        if (profile == null) {
+            // 프로필이 없으면 /profile/create로 리다이렉트
+            return "redirect:/profile/create";
+        }// 로그인한 사용자의 username
 
         // 해당 사용자의 이력서만 가져오기
         List<Resume> resumes = resumeService.getResumesByUsername(currentUsername);
