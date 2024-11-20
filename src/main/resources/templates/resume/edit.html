@@ -91,7 +91,8 @@
   <form action="/resume/update" method="post" th:object="${resume}">
     <!-- Hidden field for the ID -->
     <input type="hidden" th:field="*{id}" />
-
+    <input type="hidden" th:field="*{profile.id}" />
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <!-- Resume Title -->
     <div class="mb-3">
       <label for="title" class="form-label">이력서 제목</label>

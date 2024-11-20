@@ -42,3 +42,5 @@ logging:
         type:
           descriptor:
             sql: trace
+
+        SQL=DEBUG:

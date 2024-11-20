@@ -3,6 +3,8 @@ package inhatc.cse.task.resume;
 import inhatc.cse.task.profile.Profile;
 import inhatc.cse.task.profile.ProfileDto;
 import inhatc.cse.task.profile.ProfileService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,17 +19,26 @@ public class ResumeController {
 
     private final ProfileService profileService;
     private final ResumeService resumeService;
+    private final ResumeRepository resumeRepository;
 
-    public ResumeController(ProfileService profileService, ResumeService resumeService) {
+    public ResumeController(ProfileService profileService, ResumeService resumeService, ResumeRepository resumeRepository) {
         this.profileService = profileService;
         this.resumeService = resumeService;
+        this.resumeRepository = resumeRepository;
     }
 
     @GetMapping("/list")
     public String getResumes(Model model) {
-        List<Resume> resumes = resumeService.getAllResumes(); // Fetch all resumes
-        model.addAttribute("resumes", resumes); // Add resumes to the model
-        return "resume/list"; // Return the view for the resume list page
+        // 현재 로그인한 사용자 이름을 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();  // 로그인한 사용자의 username
+
+        // 해당 사용자의 이력서만 가져오기
+        List<Resume> resumes = resumeService.getResumesByUsername(currentUsername);
+
+        // 이력서를 모델에 추가
+        model.addAttribute("resumes", resumes);
+        return "resume/list";  // 이력서 리스트 페이지 반환
     }
 
     @GetMapping("/create")
@@ -44,10 +55,15 @@ public class ResumeController {
     }
 
     @PostMapping("/save")
-    public String saveResume(@ModelAttribute Resume resume, RedirectAttributes redirectAttributes) {
-        resumeService.saveResume(resume);
-        redirectAttributes.addFlashAttribute("message", "이력서가 성공적으로 저장되었습니다.");
-        return "redirect:/resume/list";
+    public String saveResume(@ModelAttribute ResumeDto resumeDto) {
+        // 현재 로그인된 사용자 정보를 가져오기
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();  // 로그인된 사용자의 username
+
+        // 이력서 저장을 위해 ResumeDto와 현재 사용자의 username을 서비스 메서드로 전달
+        resumeService.saveResume(resumeDto, currentUsername);  // DTO를 서비스 계층으로 전달
+
+        return "redirect:/resume/list";  // 이력서 목록 페이지로 리디렉션
     }
 
     @GetMapping("/{id}")
@@ -70,8 +86,9 @@ public class ResumeController {
         return "resume/edit"; // Redirect to edit page (resume/edit.html)
     }
     @PostMapping("/update")
-    public String updateResume(@ModelAttribute Resume resume, RedirectAttributes redirectAttributes) {
+    public String updateResume(@ModelAttribute Resume resume, RedirectAttributes redirectAttributes,Profile profile,Model model) {
         resumeService.updateResume(resume); // Save the updated resume
+        model.addAttribute("profile", profile);
         redirectAttributes.addFlashAttribute("message", "이력서가 성공적으로 업데이트되었습니다.");
         return "redirect:/resume/list";
     }

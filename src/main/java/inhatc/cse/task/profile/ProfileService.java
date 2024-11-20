@@ -109,4 +109,18 @@ public class ProfileService {
                 .Skills(profile.getSkills())
                 .build();
     }
+    public Profile convertToProfile(ProfileDto profileDto, String username) {
+        // ProfileDto에서 Profile 엔티티로 변환
+        Profile profile = new Profile();
+        profile.setUsername(username);  // 로그인된 사용자의 username을 설정
+        profile.setName(profileDto.getName());
+        profile.setCareer(profileDto.getCareer());
+        profile.setEducation(profileDto.getEducation());
+        profile.setCertificates(profileDto.getCertificates());
+        profile.setPreferredLocation(profileDto.getPreferredLocation());
+        profile.setSkills(profileDto.getSkills());
+
+        return profile;
+    }
+
 }

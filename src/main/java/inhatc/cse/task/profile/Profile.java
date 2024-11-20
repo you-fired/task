@@ -1,9 +1,6 @@
 package inhatc.cse.task.profile;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 
@@ -18,7 +15,7 @@ public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false, unique = true)
     private String username;
     private String name;
     private String career;
@@ -26,5 +23,7 @@ public class Profile {
     private String certificates;
     private String preferredLocation;
     private String skills;
+
+
 
 }
