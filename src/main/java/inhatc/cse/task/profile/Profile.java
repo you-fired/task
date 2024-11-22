@@ -23,6 +23,7 @@ public class Profile {
     private String certificates;
     private String preferredLocation;
     private String skills;
+    private String profileImagePath;
 
 
 

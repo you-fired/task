@@ -114,6 +114,10 @@
     <h2>기본 프로필 정보</h2>
     <div class="profile-grid">
       <div class="profile-item">
+        <strong>프로필 사진</strong>
+        <span><img th:src="@{${profile.profileImagePath}}" alt="프로필 이미지"/></span>
+      </div>
+      <div class="profile-item">
         <strong>이름</strong>
         <span th:text="${profile.getName()}">홍길동</span>
       </div>

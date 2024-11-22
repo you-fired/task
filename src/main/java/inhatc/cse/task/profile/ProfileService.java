@@ -57,6 +57,7 @@ public class ProfileService {
             profile.setCertificates(profileDto.getCertificates());
             profile.setPreferredLocation(profileDto.getPreferredLocation());
             profile.setSkills(profileDto.getSkills());
+            profile.setProfileImagePath(profileDto.getProfileImagePath());
 
             // 업데이트된 Profile 객체 저장
             return profileRepository.save(profile);
@@ -87,6 +88,7 @@ public class ProfileService {
         profile.setCertificates(profileDto.getCertificates());
         profile.setPreferredLocation(profileDto.getPreferredLocation());
         profile.setSkills(profileDto.getSkills());
+        profile.setProfileImagePath(profileDto.getProfileImagePath());
 
         // 새로운 프로필 저장
         return profileRepository.save(profile);
@@ -107,6 +109,7 @@ public class ProfileService {
                 .certificates(profile.getCertificates())
                 .preferredLocation(profile.getPreferredLocation())
                 .Skills(profile.getSkills())
+                .profileImagePath(profile.getProfileImagePath())
                 .build();
     }
     public Profile convertToProfile(ProfileDto profileDto, String username) {
@@ -119,6 +122,7 @@ public class ProfileService {
         profile.setCertificates(profileDto.getCertificates());
         profile.setPreferredLocation(profileDto.getPreferredLocation());
         profile.setSkills(profileDto.getSkills());
+        profile.setProfileImagePath(profileDto.getProfileImagePath());
 
         return profile;
     }

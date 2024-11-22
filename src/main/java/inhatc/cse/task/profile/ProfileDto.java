@@ -15,6 +15,7 @@ public class ProfileDto {
     private String certificates;
     private String preferredLocation;
     private String Skills;
+    private String profileImagePath;
 
 
 }
