@@ -96,32 +96,32 @@
     <!-- Resume Title -->
     <div class="mb-3">
       <label for="title" class="form-label">이력서 제목</label>
-      <input type="text" class="form-control" id="title" name="title" required>
+      <input type="text" class="form-control" th:field="*{title}" id="title" name="title" required>
     </div>
 
     <div class="mb-3">
       <label for="selfIntroduction" class="form-label">자기소개</label>
-      <textarea class="form-control" id="selfIntroduction" name="selfIntroduction" rows="3" required></textarea>
+      <textarea class="form-control"  th:field="*{selfIntroduction}" id="selfIntroduction" name="selfIntroduction" rows="3" required></textarea>
     </div>
 
     <div class="mb-3">
       <label for="projectExperience" class="form-label">프로젝트 경험</label>
-      <textarea class="form-control" id="projectExperience" name="projectExperience" rows="3"></textarea>
+      <textarea class="form-control" th:field="*{projectExperience}" id="projectExperience" name="projectExperience" rows="3"></textarea>
     </div>
 
     <div class="mb-3">
       <label for="awards" class="form-label">수상 경력</label>
-      <textarea class="form-control" id="awards" name="awards" rows="2"></textarea>
+      <textarea class="form-control" th:field="*{awards}" id="awards" name="awards" rows="2"></textarea>
     </div>
 
     <div class="mb-3">
       <label for="languageScores" class="form-label">어학 점수</label>
-      <input type="text" class="form-control" id="languageScores" name="languageScores">
+      <input type="text" class="form-control" th:field="*{languageScores}" id="languageScores" name="languageScores">
     </div>
 
     <div class="mb-3">
       <label for="communityActivities" class="form-label">커뮤니티 활동</label>
-      <textarea class="form-control" id="communityActivities" name="communityActivities" rows="3"></textarea>
+      <textarea class="form-control" th:field="*{communityActivities}" id="communityActivities" name="communityActivities" rows="3"></textarea>
     </div>
     <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">저장</button>

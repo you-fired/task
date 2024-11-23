@@ -101,6 +101,17 @@
       margin-bottom: 20px;
       text-align: center; /* 중앙 정렬 */
     }
+    .profile-item--photo img {
+      width: 150px; /* 프로필 사진의 너비 설정 */
+      height: 150px; /* 프로필 사진의 높이 설정 */
+      object-fit: cover; /* 이미지의 비율 유지하며 박스에 맞게 조정 */
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 */
+      margin-top: 10px; /* 이미지와 텍스트 사이 간격 */
+    }
+    .profile-item--photo {
+      grid-column: span 2; /* 그리드에서 2열을 차지 */
+      text-align: center; /* 콘텐츠 중앙 정렬 */
+    }
   </style>
 
 
@@ -113,7 +124,7 @@
   <div class="profile-section">
     <h2>기본 프로필 정보</h2>
     <div class="profile-grid">
-      <div class="profile-item">
+      <div class="profile-item profile-item--photo">
         <strong>프로필 사진</strong>
         <span><img th:src="@{${profile.profileImagePath}}" alt="프로필 이미지"/></span>
       </div>
