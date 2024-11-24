@@ -77,23 +77,33 @@ public class MemberController {
     }
 
     @PostMapping("/pwchange")
-    public String changePassword(@Valid PasswordChangeDto passwordChangeDto, Model model) {
+    public String changePassword(@Valid PasswordChangeDto passwordChangeDto, HttpServletRequest request, HttpServletResponse response, Model model) {
+        // 새 비밀번호와 확인 비밀번호가 일치하는지 확인
         if (!passwordChangeDto.getNewPassword().equals(passwordChangeDto.getConfirmPassword())) {
             model.addAttribute("errorMessage", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
             return "member/pwchange";
         }
 
+        // 현재 로그인한 사용자의 이메일 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName(); // 현재 로그인한 사용자의 이메일
+        String email = authentication.getName();
 
         try {
+            // 비밀번호 변경 로직 실행
             memberService.changePassword(email, passwordChangeDto.getCurrentPassword(), passwordChangeDto.getNewPassword());
-        } catch (IllegalStateException e) {
-            model.addAttribute("errorMessage", e.getMessage());
-            return "member/pwchange";
-        }
 
-        return "redirect:/"; // 성공적으로 비밀번호 변경 후 홈으로 리다이렉트
+            // 로그아웃 처리
+            SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+            logoutHandler.logout(request, response, authentication);
+
+            // 로그아웃 후 로그인 페이지로 리다이렉트
+            return "redirect:/";
+        } catch (IllegalStateException e) {
+            // 비밀번호 변경 중 에러 발생 시
+            model.addAttribute("errorMessage", e.getMessage());
+            return "memebr/pwchange";
+        }
     }
+
 
 }
